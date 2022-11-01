@@ -4,12 +4,16 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a registered listener.
+ */
 public class RegisteredListener {
 
     /**
      * The listener.
      */
     private final Listener listener;
+
     /**
      * The handlers of the listener.
      */
@@ -22,7 +26,8 @@ public class RegisteredListener {
      */
     public RegisteredListener(final Listener listener) {
         this.listener = listener;
-        this.handlers = Arrays.stream(listener.getClass().getMethods()).filter(method -> method.isAnnotationPresent(EventHandler.class)).toList();
+        this.handlers = Arrays.stream(listener.getClass().getMethods())
+                .filter(method -> method.isAnnotationPresent(EventHandler.class)).toList();
     }
 
     /**

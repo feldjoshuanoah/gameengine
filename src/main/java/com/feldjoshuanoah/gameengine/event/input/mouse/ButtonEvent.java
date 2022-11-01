@@ -11,6 +11,7 @@ public abstract class ButtonEvent implements Event {
      * The mouse button that was pressed or released.
      */
     private final int button;
+
     /**
      * The button action.
      */

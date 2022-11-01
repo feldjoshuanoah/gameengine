@@ -5,7 +5,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Represents a key event that is fired when a key is pressed.
  */
-public class KeyPressEvent extends KeyEvent {
+public final class KeyPressEvent extends KeyEvent {
 
     /**
      * Create a new key press event.

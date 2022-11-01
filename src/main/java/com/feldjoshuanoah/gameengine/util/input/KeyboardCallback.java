@@ -9,7 +9,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Contains callback methods for keyboard input.
  */
-public class KeyboardCallback {
+public final class KeyboardCallback {
 
     /**
      * Since this is a utility class, we do not want any outer classes creating an instance of it.
@@ -26,7 +26,8 @@ public class KeyboardCallback {
      * @param action The key action.
      * @param mods Bit field describing which modifier keys were held down.
      */
-    public static void keyCallback(final long window, final int key, final int scanCode, final int action, final int mods) {
+    public static void keyCallback(final long window, final int key, final int scanCode,
+                                   final int action, final int mods) {
         final EventManager eventManager = EventManager.getInstance();
         switch (action) {
             case GLFW.GLFW_PRESS -> eventManager.fire(new KeyPressEvent(key));

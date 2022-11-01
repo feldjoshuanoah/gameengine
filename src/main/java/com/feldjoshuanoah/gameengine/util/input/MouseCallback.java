@@ -41,7 +41,8 @@ public final class MouseCallback {
      * Will be called when the cursor enters or leaves the client area of the window.
      *
      * @param window The window that received the event.
-     * @param entered {@code true} if the cursor entered the window's content area, or {@code false} if it left it.
+     * @param entered {@code true} if the cursor entered the window's content area, or {@code false}
+     *                if it left it.
      */
     public static void cursorEnterCallback(final long window, final boolean entered) {
         EventManager.getInstance().fire(entered ? new CursorEnterEvent() : new CursorLeaveEvent());
@@ -55,7 +56,8 @@ public final class MouseCallback {
      * @param action The button action.
      * @param mods Bit field describing which modifier keys were held down.
      */
-    public static void mouseButtonCallback(final long window, final int button, final int action, final int mods) {
+    public static void mouseButtonCallback(final long window, final int button, final int action,
+                                           final int mods) {
         final EventManager eventManager = EventManager.getInstance();
         switch (action) {
             case GLFW.GLFW_RELEASE -> eventManager.fire(new ButtonReleaseEvent(button));
@@ -64,13 +66,15 @@ public final class MouseCallback {
     }
 
     /**
-     * Will be called when a scrolling device is used, such as a mouse wheel or scrolling area of a touchpad.
+     * Will be called when a scrolling device is used, such as a mouse wheel or scrolling area of a
+     * touchpad.
      *
      * @param window The window that received the event.
      * @param xOffset The scroll offset along the x-axis.
      * @param yOffset The scroll offset along the y-axis.
      */
-    public static void scrollCallback(final long window, final double xOffset, final double yOffset) {
+    public static void scrollCallback(final long window, final double xOffset,
+                                      final double yOffset) {
         EventManager.getInstance().fire(new ScrollEvent(xOffset, yOffset));
     }
 }

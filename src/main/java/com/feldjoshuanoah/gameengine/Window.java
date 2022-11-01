@@ -2,7 +2,6 @@ package com.feldjoshuanoah.gameengine;
 
 import com.feldjoshuanoah.gameengine.util.input.KeyboardCallback;
 import com.feldjoshuanoah.gameengine.util.input.MouseCallback;
-
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryUtil;

@@ -10,7 +10,7 @@ public class Vector {
     /**
      * Error message that is printed if the dimension of a given vector is too large.
      */
-    private static final String DIMENSION_TOO_LARGE_ERROR = "Dimension of the given vector is too large";
+    private static final String DIMENSION_TOO_LARGE = "Dimension of the vector is too large";
 
     /**
      * The components of the vector.
@@ -27,7 +27,8 @@ public class Vector {
     }
 
     /**
-     * Create a new vector with the given dimension and initialize all three components with the given value.
+     * Create a new vector with the given dimension and initialize all three components with the
+     * given value.
      *
      * @param dimension The dimension of the vector.
      * @param value The value of all components.
@@ -63,7 +64,7 @@ public class Vector {
      */
     public void add(final Vector vector) {
         if (components.length < vector.components.length) {
-            throw new IllegalArgumentException(DIMENSION_TOO_LARGE_ERROR);
+            throw new IllegalArgumentException(DIMENSION_TOO_LARGE);
         }
         for (int i = 0; i < vector.components.length; i++) {
             components[i] += vector.components[i];
@@ -78,7 +79,7 @@ public class Vector {
      */
     public void subtract(final Vector vector) {
         if (components.length < vector.components.length) {
-            throw new IllegalArgumentException(DIMENSION_TOO_LARGE_ERROR);
+            throw new IllegalArgumentException(DIMENSION_TOO_LARGE);
         }
         for (int i = 0; i < vector.components.length; i++) {
             components[i] -= vector.components[i];
@@ -104,7 +105,7 @@ public class Vector {
      */
     public void multiply(final Vector vector) {
         if (components.length < vector.components.length) {
-            throw new IllegalArgumentException(DIMENSION_TOO_LARGE_ERROR);
+            throw new IllegalArgumentException(DIMENSION_TOO_LARGE);
         }
         for (int i = 0; i < vector.components.length; i++) {
             components[i] *= vector.components[i];
@@ -130,7 +131,7 @@ public class Vector {
      */
     public void divide(final Vector vector) {
         if (components.length < vector.components.length) {
-            throw new IllegalArgumentException(DIMENSION_TOO_LARGE_ERROR);
+            throw new IllegalArgumentException(DIMENSION_TOO_LARGE);
         }
         for (int i = 0; i < vector.components.length; i++) {
             components[i] /= vector.components[i];
@@ -150,7 +151,7 @@ public class Vector {
      * Normalize this vector.
      */
     public void normalize() {
-        float length = length();
+        final float length = length();
         for (int i = 0; i < components.length; i++) {
             components[i] /= length;
         }
@@ -161,7 +162,7 @@ public class Vector {
      *
      * @param length The desired length.
      */
-    public void normalize(float length) {
+    public void normalize(final float length) {
         normalize();
         for (int i = 0; i < components.length; i++) {
             components[i] *= length;
@@ -169,7 +170,8 @@ public class Vector {
     }
 
     /**
-     * Set each component of this vector to the largest (closest to positive infinity) float value that is less than or equal to the component and is equal to a mathematical integer.
+     * Set each component of this vector to the largest (closest to positive infinity) float value
+     * that is less than or equal to the component and is equal to a mathematical integer.
      */
     public void floor() {
         for (int i = 0; i < components.length; i++) {
@@ -178,7 +180,8 @@ public class Vector {
     }
 
     /**
-     * Set each component of this vector to the smallest (closest to negative infinity) float value that is greater than or equal to the component and is equal to a mathematical integer.
+     * Set each component of this vector to the smallest (closest to negative infinity) float value
+     * that is greater than or equal to the component and is equal to a mathematical integer.
      */
     public void ceil() {
         for (int i = 0; i < components.length; i++) {
@@ -187,7 +190,8 @@ public class Vector {
     }
 
     /**
-     * Set each component of this vector to the closest float that is equal to a mathematical integer, with ties rounding to positive infinity.
+     * Set each component of this vector to the closest float that is equal to a mathematical
+     * integer, with ties rounding to positive infinity.
      */
     public void round() {
         for (int i = 0; i < components.length; i++) {
@@ -273,7 +277,7 @@ public class Vector {
      */
     public float dot(final Vector vector) {
         if (components.length != vector.components.length) {
-            throw new IllegalArgumentException("Dimensions of the vectors do not match.");
+            throw new IllegalArgumentException("Dimensions of the vectors do not match");
         }
         float dot = 0.0f;
         for (int i = 0; i < components.length; i++) {

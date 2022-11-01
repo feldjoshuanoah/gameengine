@@ -5,7 +5,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Represents a button event that is fired when a button is pressed.
  */
-public class ButtonPressEvent extends ButtonEvent {
+public final class ButtonPressEvent extends ButtonEvent {
 
     /**
      * Create a new button press event.

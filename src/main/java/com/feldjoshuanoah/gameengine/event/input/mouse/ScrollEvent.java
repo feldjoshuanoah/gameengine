@@ -3,14 +3,16 @@ package com.feldjoshuanoah.gameengine.event.input.mouse;
 import com.feldjoshuanoah.gameengine.event.Event;
 
 /**
- * Represents a scroll event that is fired when a scrolling device is used, such as a mouse wheel or scrolling area of a touchpad.
+ * Represents a scroll event that is fired when a scrolling device is used, such as a mouse wheel or
+ * scrolling area of a touchpad.
  */
-public class ScrollEvent implements Event {
+public final class ScrollEvent implements Event {
 
     /**
      * The scroll offset along the x-axis.
      */
     private final double xOffset;
+
     /**
      * The scroll offset along the y-axis.
      */

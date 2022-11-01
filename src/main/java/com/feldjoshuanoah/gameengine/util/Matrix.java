@@ -1,7 +1,5 @@
 package com.feldjoshuanoah.gameengine.util;
 
-import java.util.Arrays;
-
 /**
  * Contains the definition of a matrix comprising floats and associated transformations.
  */
@@ -10,7 +8,7 @@ public class Matrix {
     /**
      * Error message that is printed if the dimension of a given matrix is too large.
      */
-    private static final String DIMENSION_TOO_LARGE_ERROR = "Dimension of the given vector is too large";
+    private static final String DIMENSION_TOO_LARGE = "Dimension of the matrix is too large";
 
     /**
      * The components of the matrix.
@@ -53,7 +51,7 @@ public class Matrix {
      */
     public void add(final Matrix matrix) {
         if (rows() < matrix.rows() || columns() < matrix.columns()) {
-            throw new IllegalArgumentException(DIMENSION_TOO_LARGE_ERROR);
+            throw new IllegalArgumentException(DIMENSION_TOO_LARGE);
         }
         for (int i = 0; i < matrix.rows(); i++) {
             for (int j = 0; j < matrix.columns(); j++) {
@@ -70,7 +68,7 @@ public class Matrix {
      */
     public void subtract(final Matrix matrix) {
         if (rows() < matrix.rows() || columns() < matrix.columns()) {
-            throw new IllegalArgumentException(DIMENSION_TOO_LARGE_ERROR);
+            throw new IllegalArgumentException(DIMENSION_TOO_LARGE);
         }
         for (int i = 0; i < matrix.rows(); i++) {
             for (int j = 0; j < matrix.columns(); j++) {
@@ -86,7 +84,7 @@ public class Matrix {
      */
     public void multiply(final float scalar) {
         for (int i = 0; i < rows(); i++) {
-            for (int j = 0; j < columns(); i++) {
+            for (int j = 0; j < columns(); j++) {
                 components[i][j] *= scalar;
             }
         }
@@ -100,7 +98,8 @@ public class Matrix {
      */
     public Matrix multiply(final Matrix matrix) {
         if (columns() != matrix.rows()) {
-            throw new IllegalArgumentException("Number of columns of this matrix does not match number of rows of the given matrix");
+            throw new IllegalArgumentException("Number of columns of this matrix does not match "
+                    + "number of rows of the given matrix");
         }
         final float[][] product = new float[rows()][matrix.columns()];
         for (int i = 0; i < rows(); i++) {
@@ -118,7 +117,7 @@ public class Matrix {
      */
     public void negate() {
         for (int i = 0; i < rows(); i++) {
-            for (int j = 0; j < columns(); i++) {
+            for (int j = 0; j < columns(); j++) {
                 components[i][j] = -components[i][j];
             }
         }
@@ -204,7 +203,7 @@ public class Matrix {
      */
     public boolean isIdentity() {
         for (int i = 0; i < rows(); i++) {
-            for (int j = 0; j < columns(); i++) {
+            for (int j = 0; j < columns(); j++) {
                 if (components[i][j] != (i == j ? 1.0f : 0.0f)) {
                     return false;
                 }
@@ -241,12 +240,5 @@ public class Matrix {
      */
     public float get(final int row, final int column) {
         return components[row][column];
-    }
-
-    @Override
-    public String toString() {
-        return "Matrix{" +
-                "components=" + Arrays.deepToString(components) +
-                '}';
     }
 }

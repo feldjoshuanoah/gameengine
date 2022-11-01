@@ -5,7 +5,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Represents a key event that is fired when a key is repeated.
  */
-public class KeyRepeatEvent extends KeyEvent {
+public final class KeyRepeatEvent extends KeyEvent {
 
     /**
      * Create a new key repeat event.

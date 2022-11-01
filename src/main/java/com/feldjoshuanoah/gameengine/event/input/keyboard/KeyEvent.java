@@ -11,6 +11,7 @@ public abstract class KeyEvent implements Event {
      * The keyboard key that was pressed or released.
      */
     private final int key;
+
     /**
      * The key action.
      */

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * A manager that handles the events and listeners.
  */
-public class EventManager {
+public final class EventManager {
 
     /**
      * The registered listeners.
@@ -57,7 +57,7 @@ public class EventManager {
     /**
      * A helper class to make the event manager a singleton.
      */
-    private class SingletonHelper {
+    private static final class SingletonHelper {
 
         /**
          * The event manager instance.

@@ -5,7 +5,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Represents a button event that is fired when a button is released.
  */
-public class ButtonReleaseEvent extends ButtonEvent {
+public final class ButtonReleaseEvent extends ButtonEvent {
 
     /**
      * Create a new button release event.

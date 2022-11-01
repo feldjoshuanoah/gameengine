@@ -5,7 +5,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Represents a key event that is fired when a key is released.
  */
-public class KeyReleaseEvent extends KeyEvent {
+public final class KeyReleaseEvent extends KeyEvent {
 
     /**
      * Create a new key release event.
