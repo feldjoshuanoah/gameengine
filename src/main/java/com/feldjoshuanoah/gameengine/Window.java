@@ -1,7 +1,7 @@
 package com.feldjoshuanoah.gameengine;
 
-import com.feldjoshuanoah.gameengine.util.input.KeyboardCallback;
-import com.feldjoshuanoah.gameengine.util.input.MouseCallback;
+import com.feldjoshuanoah.gameengine.util.KeyboardCallback;
+import com.feldjoshuanoah.gameengine.util.MouseCallback;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;

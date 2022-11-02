@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine.util.input;
+package com.feldjoshuanoah.gameengine.util;
 
 import com.feldjoshuanoah.gameengine.Application;
 import com.feldjoshuanoah.gameengine.event.EventManager;

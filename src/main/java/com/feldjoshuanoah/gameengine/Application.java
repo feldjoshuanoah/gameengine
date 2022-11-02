@@ -1,6 +1,7 @@
 package com.feldjoshuanoah.gameengine;
 
 import com.feldjoshuanoah.gameengine.event.EventManager;
+import com.feldjoshuanoah.gameengine.scene.SceneManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -23,6 +24,16 @@ public class Application {
     private final EventManager eventManager;
 
     /**
+     * The scene manager.
+     */
+    private final SceneManager sceneManager;
+
+    /**
+     * The update fps limit.
+     */
+    private float fpsLimit;
+
+    /**
      * Create a new application.
      */
     public Application() {
@@ -32,6 +43,8 @@ public class Application {
         }
         window = new Window(640, 480, "Game Engine", MemoryUtil.NULL);
         eventManager = new EventManager();
+        sceneManager = new SceneManager();
+        fpsLimit = 60.0f;
     }
 
     /**
@@ -43,15 +56,34 @@ public class Application {
         GLFW.glfwSetErrorCallback(null).free();
     }
 
+    public void setFPSLimit(final float fpsLimit) {
+        this.fpsLimit = fpsLimit;
+    }
+
     /**
      * Some GLFW getting started boilerplate code.
      */
     public void loop() {
         GL.createCapabilities();
+
+        double lastTime = GLFW.glfwGetTime();
+        double deltaTime = 0.0;
+        double nowTime;
+
         while (!window.shouldClose()) {
+            nowTime = GLFW.glfwGetTime();
+            deltaTime += (nowTime - lastTime) * fpsLimit;
+            lastTime = nowTime;
+
+            while(deltaTime >= 1.0) {
+                GLFW.glfwPollEvents();
+                sceneManager.getScene().update();
+                deltaTime--;
+            }
+
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
             window.swapBuffers();
-            GLFW.glfwPollEvents();
+            sceneManager.getScene().render();
         }
     }
 
@@ -71,6 +103,15 @@ public class Application {
      */
     public EventManager getEventManager() {
         return eventManager;
+    }
+
+    /**
+     * Get the scene manager.
+     *
+     * @return The scene manager.
+     */
+    public SceneManager getSceneManager() {
+        return sceneManager;
     }
 
     /**
