@@ -1,5 +1,6 @@
 package com.feldjoshuanoah.gameengine.util.input;
 
+import com.feldjoshuanoah.gameengine.Application;
 import com.feldjoshuanoah.gameengine.event.EventManager;
 import com.feldjoshuanoah.gameengine.event.input.keyboard.KeyPressEvent;
 import com.feldjoshuanoah.gameengine.event.input.keyboard.KeyReleaseEvent;
@@ -10,6 +11,11 @@ import org.lwjgl.glfw.GLFW;
  * Contains callback methods for keyboard input.
  */
 public final class KeyboardCallback {
+
+    /**
+     * The application event manager.
+     */
+    private static final EventManager EVENT_MANAGER = Application.getInstance().getEventManager();
 
     /**
      * Since this is a utility class, we do not want any outer classes creating an instance of it.
@@ -28,11 +34,10 @@ public final class KeyboardCallback {
      */
     public static void keyCallback(final long window, final int key, final int scanCode,
                                    final int action, final int mods) {
-        final EventManager eventManager = EventManager.getInstance();
         switch (action) {
-            case GLFW.GLFW_PRESS -> eventManager.fire(new KeyPressEvent(key));
-            case GLFW.GLFW_RELEASE -> eventManager.fire(new KeyReleaseEvent(key));
-            case GLFW.GLFW_REPEAT -> eventManager.fire(new KeyRepeatEvent(key));
+            case GLFW.GLFW_PRESS -> EVENT_MANAGER.fire(new KeyPressEvent(key));
+            case GLFW.GLFW_RELEASE -> EVENT_MANAGER.fire(new KeyReleaseEvent(key));
+            case GLFW.GLFW_REPEAT -> EVENT_MANAGER.fire(new KeyRepeatEvent(key));
         }
     }
 }

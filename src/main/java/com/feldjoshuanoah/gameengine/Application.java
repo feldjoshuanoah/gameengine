@@ -1,5 +1,6 @@
 package com.feldjoshuanoah.gameengine;
 
+import com.feldjoshuanoah.gameengine.event.EventManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -17,47 +18,27 @@ public class Application {
     private final Window window;
 
     /**
-     * Create a new application with the given title.
-     *
-     * @param title The initial, UTF-8 encoded window title.
+     * The event manager.
      */
-    public Application(final String title) {
-        this(1920, 1080, title, GLFW.glfwGetPrimaryMonitor());
-    }
+    private final EventManager eventManager;
 
     /**
-     * Create a new application with the given dimensions and title.
-     *
-     * @param width The desired width, in screen coordinates, of the window.
-     * @param height The desired height, in screen coordinates, of the window.
-     * @param title The initial, UTF-8 encoded window title.
+     * Create a new application.
      */
-    public Application(final int width, final int height, final String title) {
-        this(width, height, title, MemoryUtil.NULL);
-    }
-
-    /**
-     * Create a new application with the given dimensions, title, and monitor.
-     *
-     * @param width The desired width, in screen coordinates, of the window.
-     * @param height The desired height, in screen coordinates, of the window.
-     * @param title The initial, UTF-8 encoded window title.
-     * @param monitor The monitor to use for full screen mode.
-     */
-    public Application(final int width, final int height, final String title, final long monitor) {
+    public Application() {
         GLFWErrorCallback.createPrint(System.err).set();
         if (!GLFW.glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
-        window = new Window(width, height, title, monitor);
-        window.show();
-        window.vSync(true);
+        window = new Window(640, 480, "Game Engine", MemoryUtil.NULL);
+        eventManager = new EventManager();
     }
 
     /**
      * Terminate the application.
      */
     public void terminate() {
+        window.destroy();
         GLFW.glfwTerminate();
         GLFW.glfwSetErrorCallback(null).free();
     }
@@ -72,5 +53,43 @@ public class Application {
             window.swapBuffers();
             GLFW.glfwPollEvents();
         }
+    }
+
+    /**
+     * Get the window.
+     *
+     * @return The window.
+     */
+    public Window getWindow() {
+        return window;
+    }
+
+    /**
+     * Get the event manager.
+     *
+     * @return The event manager.
+     */
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    /**
+     * Get the application instance.
+     *
+     * @return The application instance.
+     */
+    public static Application getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
+
+    /**
+     * A helper class to make the application a singleton.
+     */
+    private static class SingletonHelper {
+
+        /**
+         * The application instance.
+         */
+        private static final Application INSTANCE = new Application();
     }
 }

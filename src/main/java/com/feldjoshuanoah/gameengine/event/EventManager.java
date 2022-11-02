@@ -17,7 +17,7 @@ public final class EventManager {
     /**
      * Create a new event manager.
      */
-    private EventManager() {
+    public EventManager() {
         listeners = new ArrayList<>();
     }
 
@@ -43,25 +43,5 @@ public final class EventManager {
      */
     public void register(final Listener listener) {
         listeners.add(new RegisteredListener(listener));
-    }
-
-    /**
-     * Get the event manager instance.
-     *
-     * @return The event manager instance.
-     */
-    public static EventManager getInstance() {
-        return SingletonHelper.INSTANCE;
-    }
-
-    /**
-     * A helper class to make the event manager a singleton.
-     */
-    private static final class SingletonHelper {
-
-        /**
-         * The event manager instance.
-         */
-        private static final EventManager INSTANCE = new EventManager();
     }
 }

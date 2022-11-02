@@ -1,5 +1,6 @@
 package com.feldjoshuanoah.gameengine.util.input;
 
+import com.feldjoshuanoah.gameengine.Application;
 import com.feldjoshuanoah.gameengine.event.EventManager;
 import com.feldjoshuanoah.gameengine.event.input.mouse.*;
 import org.lwjgl.glfw.GLFW;
@@ -8,6 +9,11 @@ import org.lwjgl.glfw.GLFW;
  * Contains callback methods for mouse input.
  */
 public final class MouseCallback {
+
+    /**
+     * The application event manager.
+     */
+    private static final EventManager EVENT_MANAGER = Application.getInstance().getEventManager();
 
     /**
      * The previous cursor x-coordinate, relative to the left edge of the content area.
@@ -32,7 +38,7 @@ public final class MouseCallback {
      * @param y The new cursor y-coordinate, relative to the top edge of the content area.
      */
     public static void cursorPositionCallback(final long window, final double x, final double y) {
-        EventManager.getInstance().fire(new CursorMoveEvent(x, y, previousX, previousY));
+        EVENT_MANAGER.fire(new CursorMoveEvent(x, y, previousX, previousY));
         previousX = x;
         previousY = y;
     }
@@ -45,7 +51,7 @@ public final class MouseCallback {
      *                if it left it.
      */
     public static void cursorEnterCallback(final long window, final boolean entered) {
-        EventManager.getInstance().fire(entered ? new CursorEnterEvent() : new CursorLeaveEvent());
+        EVENT_MANAGER.fire(entered ? new CursorEnterEvent() : new CursorLeaveEvent());
     }
 
     /**
@@ -58,10 +64,9 @@ public final class MouseCallback {
      */
     public static void mouseButtonCallback(final long window, final int button, final int action,
                                            final int mods) {
-        final EventManager eventManager = EventManager.getInstance();
         switch (action) {
-            case GLFW.GLFW_RELEASE -> eventManager.fire(new ButtonReleaseEvent(button));
-            case GLFW.GLFW_PRESS -> eventManager.fire(new ButtonPressEvent(button));
+            case GLFW.GLFW_RELEASE -> EVENT_MANAGER.fire(new ButtonReleaseEvent(button));
+            case GLFW.GLFW_PRESS -> EVENT_MANAGER.fire(new ButtonPressEvent(button));
         }
     }
 
@@ -75,6 +80,6 @@ public final class MouseCallback {
      */
     public static void scrollCallback(final long window, final double xOffset,
                                       final double yOffset) {
-        EventManager.getInstance().fire(new ScrollEvent(xOffset, yOffset));
+        EVENT_MANAGER.fire(new ScrollEvent(xOffset, yOffset));
     }
 }
