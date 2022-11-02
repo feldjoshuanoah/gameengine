@@ -85,7 +85,7 @@ public class Application {
     /**
      * A helper class to make the application a singleton.
      */
-    private static class SingletonHelper {
+    private static final class SingletonHelper {
 
         /**
          * The application instance.
