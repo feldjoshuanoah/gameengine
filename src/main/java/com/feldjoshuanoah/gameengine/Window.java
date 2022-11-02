@@ -6,6 +6,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
 /**
@@ -42,6 +43,8 @@ public class Window {
         GLFW.glfwSetCursorEnterCallback(handle, MouseCallback::cursorEnterCallback);
         GLFW.glfwSetMouseButtonCallback(handle, MouseCallback::mouseButtonCallback);
         GLFW.glfwSetScrollCallback(handle, MouseCallback::scrollCallback);
+
+        GL.createCapabilities();
     }
 
     /**

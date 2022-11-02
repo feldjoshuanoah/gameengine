@@ -64,8 +64,6 @@ public class Application {
      * Some GLFW getting started boilerplate code.
      */
     public void loop() {
-        GL.createCapabilities();
-
         double lastTime = GLFW.glfwGetTime();
         double deltaTime = 0.0;
         double nowTime;
@@ -82,8 +80,8 @@ public class Application {
             }
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-            window.swapBuffers();
             sceneManager.getScene().render();
+            window.swapBuffers();
         }
     }
 
