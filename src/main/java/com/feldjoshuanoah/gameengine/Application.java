@@ -1,10 +1,10 @@
 package com.feldjoshuanoah.gameengine;
 
 import com.feldjoshuanoah.gameengine.event.EventManager;
-import com.feldjoshuanoah.gameengine.scene.SceneManager;
+import com.feldjoshuanoah.gameengine.render.Window;
+import com.feldjoshuanoah.gameengine.render.scene.SceneManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 

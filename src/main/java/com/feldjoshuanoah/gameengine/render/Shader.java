@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine;
+package com.feldjoshuanoah.gameengine.render;
 
 import org.joml.Matrix2f;
 import org.joml.Matrix3f;

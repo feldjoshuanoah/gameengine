@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine.scene;
+package com.feldjoshuanoah.gameengine.render.scene;
 
 /**
  * A manager that handles the scenes.

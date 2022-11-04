@@ -1,4 +1,4 @@
-package com.feldjoshuanoah.gameengine;
+package com.feldjoshuanoah.gameengine.render;
 
 import com.feldjoshuanoah.gameengine.util.KeyboardCallback;
 import com.feldjoshuanoah.gameengine.util.MouseCallback;
