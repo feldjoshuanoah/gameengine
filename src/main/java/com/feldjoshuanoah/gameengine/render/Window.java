@@ -1,11 +1,13 @@
 package com.feldjoshuanoah.gameengine.render;
 
+import com.feldjoshuanoah.gameengine.event.CallbackEventAdapter;
 import com.feldjoshuanoah.gameengine.util.KeyboardCallback;
 import com.feldjoshuanoah.gameengine.util.MouseCallback;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
@@ -38,11 +40,11 @@ public class Window {
         }
         GLFW.glfwMakeContextCurrent(handle);
 
-        GLFW.glfwSetKeyCallback(handle, KeyboardCallback::keyCallback);
-        GLFW.glfwSetCursorPosCallback(handle, MouseCallback::cursorPositionCallback);
-        GLFW.glfwSetCursorEnterCallback(handle, MouseCallback::cursorEnterCallback);
-        GLFW.glfwSetMouseButtonCallback(handle, MouseCallback::mouseButtonCallback);
-        GLFW.glfwSetScrollCallback(handle, MouseCallback::scrollCallback);
+        GLFW.glfwSetKeyCallback(handle, CallbackEventAdapter::keyCallback);
+        GLFW.glfwSetCursorPosCallback(handle, CallbackEventAdapter::cursorPositionCallback);
+        GLFW.glfwSetCursorEnterCallback(handle, CallbackEventAdapter::cursorEnterCallback);
+        GLFW.glfwSetMouseButtonCallback(handle, CallbackEventAdapter::mouseButtonCallback);
+        GLFW.glfwSetScrollCallback(handle, CallbackEventAdapter::scrollCallback);
 
         GL.createCapabilities();
     }

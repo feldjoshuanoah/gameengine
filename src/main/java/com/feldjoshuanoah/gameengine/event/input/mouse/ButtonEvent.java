@@ -18,14 +18,21 @@ public abstract class ButtonEvent implements Event {
     private final int action;
 
     /**
+     * Bit field describing which modifier keys were held down.
+     */
+    private final int mods;
+
+    /**
      * Create a new button event.
      *
      * @param button The mouse button that was pressed or released.
      * @param action The button action.
+     * @param mods Bit field describing which modifier keys were held down.
      */
-    public ButtonEvent(final int button, final int action) {
+    public ButtonEvent(final int button, final int action, final int mods) {
         this.button = button;
         this.action = action;
+        this.mods = mods;
     }
 
     /**
@@ -44,5 +51,14 @@ public abstract class ButtonEvent implements Event {
      */
     public int getAction() {
         return action;
+    }
+
+    /**
+     * Get the bit field describing which modifier keys were held down.
+     *
+     * @return Bit field describing which modifier keys were held down.
+     */
+    public int getMods() {
+        return mods;
     }
 }

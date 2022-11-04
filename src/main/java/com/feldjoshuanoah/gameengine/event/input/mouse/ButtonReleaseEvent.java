@@ -11,8 +11,9 @@ public final class ButtonReleaseEvent extends ButtonEvent {
      * Create a new button release event.
      *
      * @param button The button that was released.
+     * @param mods Bit field describing which modifier keys were held down.
      */
-    public ButtonReleaseEvent(final int button) {
-        super(button, GLFW.GLFW_RELEASE);
+    public ButtonReleaseEvent(final int button, final int mods) {
+        super(button, GLFW.GLFW_RELEASE, mods);
     }
 }

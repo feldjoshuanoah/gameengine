@@ -11,8 +11,10 @@ public final class KeyReleaseEvent extends KeyEvent {
      * Create a new key release event.
      *
      * @param key The key that was released.
+     * @param scanCode The system-specific scancode of the key.
+     * @param mods Bit field describing which modifier keys were held down.
      */
-    public KeyReleaseEvent(final int key) {
-        super(key, GLFW.GLFW_RELEASE);
+    public KeyReleaseEvent(final int key, final int scanCode, final int mods) {
+        super(key, scanCode, GLFW.GLFW_RELEASE, mods);
     }
 }

@@ -11,8 +11,9 @@ public final class ButtonPressEvent extends ButtonEvent {
      * Create a new button press event.
      *
      * @param button The button that was pressed.
+     * @param mods Bit field describing which modifier keys were held down.
      */
-    public ButtonPressEvent(final int button) {
-        super(button, GLFW.GLFW_PRESS);
+    public ButtonPressEvent(final int button, final int mods) {
+        super(button, GLFW.GLFW_PRESS, mods);
     }
 }
