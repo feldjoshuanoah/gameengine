@@ -100,7 +100,8 @@ public class Shader {
      */
     public void uniform2f(final String name, final Vector2f vector) {
         try (final MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniform2fv(GL20.glGetUniformLocation(handle, name), vector.get(stack.mallocFloat(2)));
+            GL20.glUniform2fv(GL20.glGetUniformLocation(handle, name),
+                    vector.get(stack.mallocFloat(2)));
         }
     }
 
@@ -112,7 +113,8 @@ public class Shader {
      */
     public void uniform2i(final String name, final Vector2i vector) {
         try (final MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniform2iv(GL20.glGetUniformLocation(handle, name), vector.get(stack.mallocInt(2)));
+            GL20.glUniform2iv(GL20.glGetUniformLocation(handle, name),
+                    vector.get(stack.mallocInt(2)));
         }
     }
 
@@ -124,7 +126,8 @@ public class Shader {
      */
     public void uniform3f(final String name, final Vector3f vector) {
         try (final MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniform3fv(GL20.glGetUniformLocation(handle, name), vector.get(stack.mallocFloat(3)));
+            GL20.glUniform3fv(GL20.glGetUniformLocation(handle, name),
+                    vector.get(stack.mallocFloat(3)));
         }
     }
 
@@ -136,7 +139,8 @@ public class Shader {
      */
     public void uniform3i(final String name, final Vector3i vector) {
         try (final MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniform3iv(GL20.glGetUniformLocation(handle, name), vector.get(stack.mallocInt(3)));
+            GL20.glUniform3iv(GL20.glGetUniformLocation(handle, name),
+                    vector.get(stack.mallocInt(3)));
         }
     }
 
@@ -148,7 +152,8 @@ public class Shader {
      */
     public void uniform4f(final String name, final Vector4f vector) {
         try (final MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniform4fv(GL20.glGetUniformLocation(handle, name), vector.get(stack.mallocFloat(4)));
+            GL20.glUniform4fv(GL20.glGetUniformLocation(handle, name),
+                    vector.get(stack.mallocFloat(4)));
         }
     }
 
@@ -160,7 +165,8 @@ public class Shader {
      */
     public void uniform4i(final String name, final Vector4i vector) {
         try (final MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniform4iv(GL20.glGetUniformLocation(handle, name), vector.get(stack.mallocInt(4)));
+            GL20.glUniform4iv(GL20.glGetUniformLocation(handle, name),
+                    vector.get(stack.mallocInt(4)));
         }
     }
 
