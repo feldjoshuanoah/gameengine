@@ -16,13 +16,10 @@
 package com.feldjoshuanoah.gameengine.render;
 
 import com.feldjoshuanoah.gameengine.event.CallbackEventAdapter;
-import com.feldjoshuanoah.gameengine.util.KeyboardCallback;
-import com.feldjoshuanoah.gameengine.util.MouseCallback;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 
@@ -55,7 +52,16 @@ public class Window {
         }
         GLFW.glfwMakeContextCurrent(handle);
 
+        GLFW.glfwSetWindowPosCallback(handle, CallbackEventAdapter::windowPositionCallback);
+        GLFW.glfwSetWindowSizeCallback(handle, CallbackEventAdapter::windowSizeCallback);
+        GLFW.glfwSetWindowCloseCallback(handle, CallbackEventAdapter::windowCloseCallback);
+        GLFW.glfwSetWindowRefreshCallback(handle, CallbackEventAdapter::windowRefreshCallback);
+        GLFW.glfwSetWindowFocusCallback(handle, CallbackEventAdapter::windowFocusCallback);
+        GLFW.glfwSetWindowIconifyCallback(handle, CallbackEventAdapter::windowIconifyCallback);
+        GLFW.glfwSetWindowMaximizeCallback(handle, CallbackEventAdapter::windowMaximizeCallback);
+
         GLFW.glfwSetKeyCallback(handle, CallbackEventAdapter::keyCallback);
+
         GLFW.glfwSetCursorPosCallback(handle, CallbackEventAdapter::cursorPositionCallback);
         GLFW.glfwSetCursorEnterCallback(handle, CallbackEventAdapter::cursorEnterCallback);
         GLFW.glfwSetMouseButtonCallback(handle, CallbackEventAdapter::mouseButtonCallback);
