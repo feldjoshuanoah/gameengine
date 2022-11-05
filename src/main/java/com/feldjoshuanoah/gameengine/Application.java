@@ -79,20 +79,15 @@ public class Application {
      * Some GLFW getting started boilerplate code.
      */
     public void loop() {
-        double lastTime = GLFW.glfwGetTime();
-        double deltaTime = 0.0;
-        double nowTime;
+        float lastFrameTime = 0.0f;
 
         while (!window.shouldClose()) {
-            nowTime = GLFW.glfwGetTime();
-            deltaTime += (nowTime - lastTime) * fpsLimit;
-            lastTime = nowTime;
+            final float time = (float) GLFW.glfwGetTime();
+            final float timeStep = time - lastFrameTime;
+            lastFrameTime = time;
 
-            while(deltaTime >= 1.0) {
-                GLFW.glfwPollEvents();
-                sceneManager.getScene().update();
-                deltaTime--;
-            }
+            GLFW.glfwPollEvents();
+            sceneManager.getScene().update(timeStep);
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
             sceneManager.getScene().render();

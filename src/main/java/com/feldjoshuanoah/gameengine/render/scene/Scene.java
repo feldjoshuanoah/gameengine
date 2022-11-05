@@ -23,7 +23,7 @@ public interface Scene {
     /**
      * Update the scene.
      */
-    void update();
+    void update(final float timeStep);
 
     /**
      * Render the scene.
