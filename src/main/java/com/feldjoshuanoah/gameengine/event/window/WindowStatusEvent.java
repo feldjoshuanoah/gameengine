@@ -20,14 +20,25 @@ import com.feldjoshuanoah.gameengine.event.Event;
 /**
  * Represents a window status event that is fired when the window status changes.
  */
-public abstract class WindowStatusEvent implements Event {
+public class WindowStatusEvent implements Event {
 
     /**
      * Represents a window status.
      */
     public enum WindowStatus {
 
-        ICONIFY, MAXIMIZE, RESTORE
+        /**
+         * Occurs when the window is iconified.
+         */
+        ICONIFY,
+        /**
+         * Occurs when the window is maximized.
+         */
+        MAXIMIZE,
+        /**
+         * Occurs when the window is restored.
+         */
+        RESTORE
     }
 
     /**

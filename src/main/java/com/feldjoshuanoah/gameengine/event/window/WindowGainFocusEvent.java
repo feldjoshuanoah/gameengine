@@ -26,5 +26,6 @@ public final class WindowGainFocusEvent implements Event {
      * Create a new window gain focus event.
      */
     public WindowGainFocusEvent() {
+        // This is empty intentionally.
     }
 }

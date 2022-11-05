@@ -20,7 +20,7 @@ import com.feldjoshuanoah.gameengine.event.Event;
 /**
  * Represents a key event that is fired when a key is pressed, held, or released.
  */
-public abstract class KeyEvent implements Event {
+public class KeyEvent implements Event {
 
     /**
      * The keyboard key that was pressed or released.

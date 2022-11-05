@@ -21,6 +21,12 @@ import com.feldjoshuanoah.gameengine.event.Event;
  * Represents a window refresh event that is fired when the content area of the window needs to be
  * redrawn, for example if the window has been exposed after having been covered by another window.
  */
-public final class WindowRefreshWindow implements Event {
+public final class WindowRefreshEvent implements Event {
 
+    /**
+     * Create a new window refresh event.
+     */
+    public WindowRefreshEvent() {
+        // This is empty intentionally.
+    }
 }

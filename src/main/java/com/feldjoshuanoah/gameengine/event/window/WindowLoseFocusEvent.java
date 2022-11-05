@@ -26,5 +26,6 @@ public final class WindowLoseFocusEvent implements Event {
      * Create a new window lose focus event.
      */
     public WindowLoseFocusEvent() {
+        // This is empty intentionally.
     }
 }

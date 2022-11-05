@@ -29,6 +29,16 @@ import org.lwjgl.system.MemoryUtil;
 public class Application {
 
     /**
+     * The default width for newly created windows.
+     */
+    private static final int DEFAULT_WIDTH = 1280;
+
+    /**
+     * The default height for newly created windows.
+     */
+    private static final int DEFAULT_HEIGHT = 720;
+
+    /**
      * The window.
      */
     private final Window window;
@@ -44,11 +54,6 @@ public class Application {
     private final SceneManager sceneManager;
 
     /**
-     * The update fps limit.
-     */
-    private float fpsLimit;
-
-    /**
      * Create a new application.
      */
     public Application() {
@@ -56,10 +61,9 @@ public class Application {
         if (!GLFW.glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
-        window = new Window(640, 480, "Game Engine", MemoryUtil.NULL);
+        window = new Window(DEFAULT_WIDTH, DEFAULT_HEIGHT, "Game Engine", MemoryUtil.NULL);
         eventManager = new EventManager();
         sceneManager = new SceneManager();
-        fpsLimit = 60.0f;
     }
 
     /**
@@ -69,10 +73,6 @@ public class Application {
         window.destroy();
         GLFW.glfwTerminate();
         GLFW.glfwSetErrorCallback(null).free();
-    }
-
-    public void setFPSLimit(final float fpsLimit) {
-        this.fpsLimit = fpsLimit;
     }
 
     /**
@@ -140,5 +140,11 @@ public class Application {
          * The application instance.
          */
         private static final Application INSTANCE = new Application();
+
+        /**
+         * Since this is a singleton helper this should be instantiated.
+         */
+        private SingletonHelper() {
+        }
     }
 }

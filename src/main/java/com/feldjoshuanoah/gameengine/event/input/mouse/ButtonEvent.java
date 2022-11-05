@@ -20,7 +20,7 @@ import com.feldjoshuanoah.gameengine.event.Event;
 /**
  * Represents a button event that is fired when a button is pressed or released.
  */
-public abstract class ButtonEvent implements Event {
+public class ButtonEvent implements Event {
 
     /**
      * The mouse button that was pressed or released.

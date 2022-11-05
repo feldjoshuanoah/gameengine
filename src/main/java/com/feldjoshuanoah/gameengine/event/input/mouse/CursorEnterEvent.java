@@ -26,5 +26,6 @@ public final class CursorEnterEvent implements Event {
      * Returns a new cursor enter event.
      */
     public CursorEnterEvent() {
+        // This is empty intentionally.
     }
 }

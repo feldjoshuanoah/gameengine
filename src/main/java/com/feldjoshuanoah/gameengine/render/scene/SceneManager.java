@@ -29,6 +29,7 @@ public final class SceneManager {
      * Create a new scene manager.
      */
     public SceneManager() {
+        // This is empty intentionally.
     }
 
     /**

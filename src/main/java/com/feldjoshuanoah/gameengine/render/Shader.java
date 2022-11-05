@@ -33,6 +33,36 @@ import org.lwjgl.system.MemoryStack;
 public class Shader {
 
     /**
+     * The number of components of a vec2.
+     */
+    private static final int SIZE_VEC2 = 2;
+
+    /**
+     * The number of components of a vec3.
+     */
+    private static final int SIZE_VEC3 = 3;
+
+    /**
+     * The number of components of a vec4.
+     */
+    private static final int SIZE_VEC4 = 4;
+
+    /**
+     * The number of components of a mat2.
+     */
+    private static final int SIZE_MAT2 = 4;
+
+    /**
+     * The number of components of a mat3.
+     */
+    private static final int SIZE_MAT3 = 9;
+
+    /**
+     * The number of components of a mat4.
+     */
+    private static final int SIZE_MAT4 = 16;
+
+    /**
      * The program handle.
      */
     private final int handle;
@@ -99,9 +129,9 @@ public class Shader {
      * @param vector The desired value for the vec2 uniform variable.
      */
     public void uniform2f(final String name, final Vector2f vector) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform2fv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocFloat(2)));
+                    vector.get(stack.mallocFloat(SIZE_VEC2)));
         }
     }
 
@@ -112,9 +142,9 @@ public class Shader {
      * @param vector The desired value for the vec2 uniform variable.
      */
     public void uniform2i(final String name, final Vector2i vector) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform2iv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocInt(2)));
+                    vector.get(stack.mallocInt(SIZE_VEC2)));
         }
     }
 
@@ -125,9 +155,9 @@ public class Shader {
      * @param vector The desired value for the vec3 uniform variable.
      */
     public void uniform3f(final String name, final Vector3f vector) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform3fv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocFloat(3)));
+                    vector.get(stack.mallocFloat(SIZE_VEC3)));
         }
     }
 
@@ -138,9 +168,9 @@ public class Shader {
      * @param vector The desired value for the vec3 uniform variable.
      */
     public void uniform3i(final String name, final Vector3i vector) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform3iv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocInt(3)));
+                    vector.get(stack.mallocInt(SIZE_VEC3)));
         }
     }
 
@@ -151,9 +181,9 @@ public class Shader {
      * @param vector The desired value for the vec4 uniform variable.
      */
     public void uniform4f(final String name, final Vector4f vector) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform4fv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocFloat(4)));
+                    vector.get(stack.mallocFloat(SIZE_VEC4)));
         }
     }
 
@@ -164,9 +194,9 @@ public class Shader {
      * @param vector The desired value for the vec4 uniform variable.
      */
     public void uniform4i(final String name, final Vector4i vector) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform4iv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocInt(4)));
+                    vector.get(stack.mallocInt(SIZE_VEC4)));
         }
     }
 
@@ -177,9 +207,9 @@ public class Shader {
      * @param matrix The desired value for the mat3 uniform variable.
      */
     public void uniformMatrix2f(final String name, final Matrix2f matrix) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniformMatrix2fv(GL20.glGetUniformLocation(handle, name), false,
-                    matrix.get(stack.mallocFloat(4)));
+                    matrix.get(stack.mallocFloat(SIZE_MAT2)));
         }
     }
 
@@ -190,9 +220,9 @@ public class Shader {
      * @param matrix The desired value for the mat3 uniform variable.
      */
     public void uniformMatrix3f(final String name, final Matrix3f matrix) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniformMatrix3fv(GL20.glGetUniformLocation(handle, name), false,
-                    matrix.get(stack.mallocFloat(9)));
+                    matrix.get(stack.mallocFloat(SIZE_MAT3)));
         }
     }
 
@@ -203,9 +233,9 @@ public class Shader {
      * @param matrix The desired value for the mat4 uniform variable.
      */
     public void uniformMatrix4f(final String name, final Matrix4f matrix) {
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(handle, name), false,
-                    matrix.get(stack.mallocFloat(16)));
+                    matrix.get(stack.mallocFloat(SIZE_MAT4)));
         }
     }
 

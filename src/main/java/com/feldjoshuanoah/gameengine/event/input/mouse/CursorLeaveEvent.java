@@ -26,5 +26,6 @@ public final class CursorLeaveEvent implements Event {
      * Creates a new cursor leave event.
      */
     public CursorLeaveEvent() {
+        // This is empty intentionally.
     }
 }

@@ -31,7 +31,7 @@ import com.feldjoshuanoah.gameengine.event.window.WindowIconifyEvent;
 import com.feldjoshuanoah.gameengine.event.window.WindowLoseFocusEvent;
 import com.feldjoshuanoah.gameengine.event.window.WindowMaximizeEvent;
 import com.feldjoshuanoah.gameengine.event.window.WindowMoveEvent;
-import com.feldjoshuanoah.gameengine.event.window.WindowRefreshWindow;
+import com.feldjoshuanoah.gameengine.event.window.WindowRefreshEvent;
 import com.feldjoshuanoah.gameengine.event.window.WindowResizeEvent;
 import com.feldjoshuanoah.gameengine.event.window.WindowRestoreEvent;
 import org.lwjgl.glfw.GLFW;
@@ -103,7 +103,7 @@ public final class CallbackEventAdapter {
      * @param window The window that received the event.
      */
     public static void windowRefreshCallback(final long window) {
-        EVENT_MANAGER.fire(new WindowRefreshWindow());
+        EVENT_MANAGER.fire(new WindowRefreshEvent());
     }
 
     /**

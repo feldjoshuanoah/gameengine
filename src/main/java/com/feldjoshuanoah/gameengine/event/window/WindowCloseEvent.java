@@ -27,5 +27,6 @@ public final class WindowCloseEvent implements Event {
      * Create a new window close event.
      */
     public WindowCloseEvent() {
+        // This is empty intentionally.
     }
 }
