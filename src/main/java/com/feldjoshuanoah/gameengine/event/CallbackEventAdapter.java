@@ -60,26 +60,65 @@ public final class CallbackEventAdapter {
         EVENT_MANAGER.fire(new WindowMoveEvent(x, y));
     }
 
+    /**
+     * Will be called when the window is resized.
+     *
+     * @param window The window that received the event.
+     * @param width The new width, in screen coordinates, of the window.
+     * @param height The new height, in screen coordinates, of the window.
+     */
     public static void windowSizeCallback(final long window, final int width, final int height) {
         EVENT_MANAGER.fire(new WindowResizeEvent(width, height));
     }
 
+    /**
+     * Will be called when the user attempts to close the window, for example by clicking the close
+     * widget in the title bar.
+     *
+     * @param window The window that received the event.
+     */
     public static void windowCloseCallback(final long window) {
         EVENT_MANAGER.fire(new WindowCloseEvent());
     }
 
+    /**
+     * Will be called when the content area of the window needs to be redrawn, for example if the
+     * window has been exposed after having been covered by another window.
+     *
+     * @param window The window that received the event.
+     */
     public static void windowRefreshCallback(final long window) {
         EVENT_MANAGER.fire(new WindowRefreshWindow());
     }
 
+    /**
+     * Will be called when the window gains or loses input focus.
+     *
+     * @param window The window that received the event.
+     * @param focus {@code true} if the window was given input focus, or {@code false} if it's lost.
+     */
     public static void windowFocusCallback(final long window, final boolean focus) {
         EVENT_MANAGER.fire(focus ? new WindowGainFocusEvent() : new WindowLoseFocusEvent());
     }
 
+    /**
+     * Will be called when the window is iconified or restored.
+     *
+     * @param window The window that received the event.
+     * @param iconified {@code true} if the window was iconified, or {@code false} if it was
+     *                  restored.
+     */
     public static void windowIconifyCallback(final long window, final boolean iconified) {
         EVENT_MANAGER.fire(iconified ? new WindowIconifyEvent() : new WindowRestoreEvent());
     }
 
+    /**
+     * Will be called when the window is maximized or restored.
+     *
+     * @param window The window that received the event.
+     * @param maximized {@code true} if the window was maximized, or {@code false} if it was
+     *                  restored.
+     */
     public static void windowMaximizeCallback(final long window, final boolean maximized) {
         EVENT_MANAGER.fire(maximized ? new WindowMaximizeEvent() : new WindowRestoreEvent());
     }

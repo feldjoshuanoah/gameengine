@@ -12,7 +12,7 @@ public abstract class WindowStatusEvent implements Event {
      */
     public enum WindowStatus {
 
-        ICONIFY, RESTORE, MAXIMIZE
+        ICONIFY, MAXIMIZE, RESTORE
     }
 
     /**
