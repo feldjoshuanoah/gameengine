@@ -48,7 +48,7 @@ public class Window {
 
         handle = GLFW.glfwCreateWindow(width, height, title, monitor, MemoryUtil.NULL);
         if (handle == MemoryUtil.NULL) {
-            throw new RuntimeException("Failed to create the GLFW window");
+            throw new IllegalStateException("Failed to create the GLFW window");
         }
         GLFW.glfwMakeContextCurrent(handle);
 
