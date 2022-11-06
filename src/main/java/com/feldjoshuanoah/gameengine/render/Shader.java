@@ -27,10 +27,18 @@ import org.joml.Vector4i;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Represents a shader program.
  */
 public class Shader {
+
+    /**
+     * The logger for the shader.
+     */
+    private static final Logger LOGGER = Logger.getLogger(Shader.class.getName());
 
     /**
      * The number of components of a vec2.
@@ -79,7 +87,9 @@ public class Shader {
         final int fragment = attachShader(GL20.GL_FRAGMENT_SHADER, fragmentSource);
         GL20.glLinkProgram(handle);
         if (GL20.glGetProgrami(handle, GL20.GL_LINK_STATUS) == GL20.GL_FALSE) {
-            System.err.println(GL20.glGetProgramInfoLog(handle));
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, GL20.glGetProgramInfoLog(handle));
+            }
             GL20.glDeleteProgram(handle);
             GL20.glDeleteShader(vertex);
             GL20.glDeleteShader(fragment);
@@ -251,7 +261,9 @@ public class Shader {
         GL20.glShaderSource(shader, source);
         GL20.glCompileShader(shader);
         if (GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == GL20.GL_FALSE) {
-            System.err.println(GL20.glGetShaderInfoLog(shader));
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, GL20.glGetShaderInfoLog(shader));
+            }
             GL20.glDeleteShader(shader);
         }
         GL20.glAttachShader(handle, shader);

@@ -18,11 +18,18 @@ package com.feldjoshuanoah.gameengine.event;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A manager that handles the events and listeners.
  */
 public final class EventManager {
+
+    /**
+     * The logger for the event manager.
+     */
+    private static final Logger LOGGER = Logger.getLogger(EventManager.class.getName());
 
     /**
      * The registered listeners.
@@ -42,11 +49,15 @@ public final class EventManager {
      * @param event The event to fire.
      */
     public void fire(final Event event) {
-        listeners.forEach(listener -> listener.getHandlers().stream().filter(handler -> handler.getParameterTypes()[0].isAssignableFrom(event.getClass())).forEach(handler -> {
+        listeners.forEach(listener -> listener.getHandlers().stream().filter(
+                handler -> handler.getParameterTypes()[0].isAssignableFrom(event.getClass()))
+                .forEach(handler -> {
             try {
                 handler.invoke(listener.getListener(), event);
-            } catch (final IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+            } catch (final IllegalAccessException | InvocationTargetException exception) {
+                if (LOGGER.isLoggable(Level.SEVERE)) {
+                    LOGGER.log(Level.SEVERE, "Failed to fire an event.", exception);
+                }
             }
         }));
     }
