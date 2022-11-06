@@ -25,6 +25,7 @@ import org.joml.Vector3i;
 import org.joml.Vector4f;
 import org.joml.Vector4i;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.system.MemoryStack;
 
 import java.util.logging.Level;
@@ -36,39 +37,108 @@ import java.util.logging.Logger;
 public class Shader {
 
     /**
+     * Represents a GLSL data type.
+     */
+    public enum DataType {
+
+        /**
+         * A float.
+         */
+        FLOAT(1, GL30.GL_FLOAT),
+        /**
+         * An int.
+         */
+        INT(1, GL30.GL_INT),
+        /**
+         * A vec2.
+         */
+        VEC2(2, GL30.GL_FLOAT),
+        /**
+         * An ivec2.
+         */
+        IVEC2(2, GL30.GL_INT),
+        /**
+         * A vec3.
+         */
+        VEC3(3, GL30.GL_FLOAT),
+        /**
+         * An ivec3.
+         */
+        IVEC3(3, GL30.GL_INT),
+        /**
+         * A vec4.
+         */
+        VEC4(4, GL30.GL_FLOAT),
+        /**
+         * An ivec4.
+         */
+        IVEC4(4, GL30.GL_INT),
+        /**
+         * A mat2.
+         */
+        MAT2(4, GL30.GL_FLOAT),
+        /**
+         * A mat3.
+         */
+        MAT3(9, GL30.GL_FLOAT),
+        /**
+         * A mat4.
+         */
+        MAT4(16, GL30.GL_FLOAT);
+
+        /**
+         * The number of components in the data type.
+         */
+        private final int size;
+
+        /**
+         * The OpenGL data type.
+         */
+        private final int type;
+
+        /**
+         * Create a new data type.
+         *
+         * @param size The number of components in the data type.
+         * @param type The OpenGL data type.
+         */
+        DataType(final int size, final int type) {
+            this.size = size;
+            this.type = type;
+        }
+
+        /**
+         * Get the number of components in the data type.
+         *
+         * @return The number of components.
+         */
+        public int getSize() {
+            return size;
+        }
+
+        /**
+         * Get the OpenGL data type.
+         *
+         * @return The OpenGL data type.
+         */
+        public int getType() {
+            return type;
+        }
+
+        /**
+         * Get the size of the data type in bytes.
+         *
+         * @return The size in bytes.
+         */
+        public int getByteSize() {
+            return (type == GL30.GL_INT ? Integer.BYTES : Float.BYTES) * size;
+        }
+    }
+
+    /**
      * The logger for the shader.
      */
     private static final Logger LOGGER = Logger.getLogger(Shader.class.getName());
-
-    /**
-     * The number of components of a vec2.
-     */
-    private static final int SIZE_VEC2 = 2;
-
-    /**
-     * The number of components of a vec3.
-     */
-    private static final int SIZE_VEC3 = 3;
-
-    /**
-     * The number of components of a vec4.
-     */
-    private static final int SIZE_VEC4 = 4;
-
-    /**
-     * The number of components of a mat2.
-     */
-    private static final int SIZE_MAT2 = 4;
-
-    /**
-     * The number of components of a mat3.
-     */
-    private static final int SIZE_MAT3 = 9;
-
-    /**
-     * The number of components of a mat4.
-     */
-    private static final int SIZE_MAT4 = 16;
 
     /**
      * The program handle.
@@ -141,7 +211,7 @@ public class Shader {
     public void uniform2f(final String name, final Vector2f vector) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform2fv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocFloat(SIZE_VEC2)));
+                    vector.get(stack.mallocFloat(DataType.VEC2.getSize())));
         }
     }
 
@@ -154,7 +224,7 @@ public class Shader {
     public void uniform2i(final String name, final Vector2i vector) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform2iv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocInt(SIZE_VEC2)));
+                    vector.get(stack.mallocInt(DataType.IVEC2.getSize())));
         }
     }
 
@@ -167,7 +237,7 @@ public class Shader {
     public void uniform3f(final String name, final Vector3f vector) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform3fv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocFloat(SIZE_VEC3)));
+                    vector.get(stack.mallocFloat(DataType.VEC3.getSize())));
         }
     }
 
@@ -180,7 +250,7 @@ public class Shader {
     public void uniform3i(final String name, final Vector3i vector) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform3iv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocInt(SIZE_VEC3)));
+                    vector.get(stack.mallocInt(DataType.IVEC3.getSize())));
         }
     }
 
@@ -193,7 +263,7 @@ public class Shader {
     public void uniform4f(final String name, final Vector4f vector) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform4fv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocFloat(SIZE_VEC4)));
+                    vector.get(stack.mallocFloat(DataType.VEC4.getSize())));
         }
     }
 
@@ -206,7 +276,7 @@ public class Shader {
     public void uniform4i(final String name, final Vector4i vector) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniform4iv(GL20.glGetUniformLocation(handle, name),
-                    vector.get(stack.mallocInt(SIZE_VEC4)));
+                    vector.get(stack.mallocInt(DataType.IVEC4.getSize())));
         }
     }
 
@@ -219,7 +289,7 @@ public class Shader {
     public void uniformMatrix2f(final String name, final Matrix2f matrix) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniformMatrix2fv(GL20.glGetUniformLocation(handle, name), false,
-                    matrix.get(stack.mallocFloat(SIZE_MAT2)));
+                    matrix.get(stack.mallocFloat(DataType.MAT2.getSize())));
         }
     }
 
@@ -232,7 +302,7 @@ public class Shader {
     public void uniformMatrix3f(final String name, final Matrix3f matrix) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniformMatrix3fv(GL20.glGetUniformLocation(handle, name), false,
-                    matrix.get(stack.mallocFloat(SIZE_MAT3)));
+                    matrix.get(stack.mallocFloat(DataType.MAT3.getSize())));
         }
     }
 
@@ -245,7 +315,7 @@ public class Shader {
     public void uniformMatrix4f(final String name, final Matrix4f matrix) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             GL20.glUniformMatrix4fv(GL20.glGetUniformLocation(handle, name), false,
-                    matrix.get(stack.mallocFloat(SIZE_MAT4)));
+                    matrix.get(stack.mallocFloat(DataType.MAT4.getSize())));
         }
     }
 
