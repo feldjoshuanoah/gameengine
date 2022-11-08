@@ -26,7 +26,7 @@ public class Camera {
     /**
      * The projection matrix.
      */
-    private final Matrix4f projection;
+    private Matrix4f projection;
 
     /**
      * The view matrix.
@@ -105,6 +105,21 @@ public class Camera {
      */
     public Matrix4f getProjection() {
         return new Matrix4f(projection);
+    }
+
+    /**
+     * Set the projection matrix of the camera.
+     *
+     * @param left The distance from the center to the left frustum edge.
+     * @param right The distance from the center to the right frustum edge.
+     * @param top The distance from the center to the top frustum edge.
+     * @param bottom The distance from the center to the bottom frustum edge.
+     * @param near The near clipping plane distance.
+     * @param far The far clipping plane distance.
+     */
+    public void setProjection(final float left, final float right, final float top,
+            final float bottom, final float near, final float far) {
+        this.projection = new Matrix4f().ortho(left, right, top, bottom, near, far);
     }
 
     /**
