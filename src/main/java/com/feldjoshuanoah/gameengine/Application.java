@@ -54,6 +54,11 @@ public class Application {
     private final SceneManager sceneManager;
 
     /**
+     * The delta time.
+     */
+    private final float deltaTime = 1.0f / 60.0f;
+
+    /**
      * Create a new application.
      */
     public Application() {
@@ -79,16 +84,18 @@ public class Application {
      * Some GLFW getting started boilerplate code.
      */
     public void loop() {
-        float lastFrameTime = 0.0f;
-
+        float currentTime = (float) GLFW.glfwGetTime();
+        float accumulator = 0.0f;
         while (!window.shouldClose()) {
-            final float time = (float) GLFW.glfwGetTime();
-            final float timeStep = time - lastFrameTime;
-            lastFrameTime = time;
-
-            GLFW.glfwPollEvents();
-            sceneManager.getScene().update(timeStep);
-
+            final float newTime = (float) GLFW.glfwGetTime();
+            final float frameTime = newTime - currentTime;
+            currentTime = newTime;
+            accumulator += frameTime;
+            while(accumulator >= deltaTime) {
+                GLFW.glfwPollEvents();
+                sceneManager.getScene().update();
+                accumulator -= deltaTime;
+            }
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
             sceneManager.getScene().render();
             window.swapBuffers();
@@ -120,6 +127,15 @@ public class Application {
      */
     public SceneManager getSceneManager() {
         return sceneManager;
+    }
+
+    /**
+     * Get the delta time.
+     *
+     * @return The delta time.
+     */
+    public float getDeltaTime() {
+        return deltaTime;
     }
 
     /**

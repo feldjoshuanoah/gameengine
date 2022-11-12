@@ -22,10 +22,8 @@ public interface Scene {
 
     /**
      * Update the scene.
-     *
-     * @param timeStep The time step for the update.
      */
-    void update(float timeStep);
+    void update();
 
     /**
      * Render the scene.
