@@ -17,6 +17,7 @@ package com.feldjoshuanoah.gameengine;
 
 import com.feldjoshuanoah.gameengine.event.EventManager;
 import com.feldjoshuanoah.gameengine.render.Window;
+import com.feldjoshuanoah.gameengine.render.scene.AbstractScene;
 import com.feldjoshuanoah.gameengine.render.scene.SceneManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -87,17 +88,20 @@ public class Application {
         float currentTime = (float) GLFW.glfwGetTime();
         float accumulator = 0.0f;
         while (!window.shouldClose()) {
+            final AbstractScene scene = sceneManager.getScene();
             final float newTime = (float) GLFW.glfwGetTime();
             final float frameTime = newTime - currentTime;
             currentTime = newTime;
             accumulator += frameTime;
             while(accumulator >= deltaTime) {
                 GLFW.glfwPollEvents();
-                sceneManager.getScene().update();
+                scene.update();
+                scene.updateEntities();
                 accumulator -= deltaTime;
             }
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-            sceneManager.getScene().render();
+            scene.render();
+            scene.renderEntities();
             window.swapBuffers();
         }
     }

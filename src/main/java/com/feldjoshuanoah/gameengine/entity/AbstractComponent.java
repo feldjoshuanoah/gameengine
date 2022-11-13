@@ -13,44 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.feldjoshuanoah.gameengine.render.scene;
+package com.feldjoshuanoah.gameengine.entity;
 
 /**
- * A manager that handles the scenes.
+ * Represents an entity component.
  */
-public final class SceneManager {
+public abstract class AbstractComponent {
 
     /**
-     * The active scene.
+     * The parent entity.
      */
-    private AbstractScene scene;
+    private Entity entity;
 
     /**
-     * Create a new scene manager.
+     * Create a new entity component.
      */
-    public SceneManager() {
-        // This is empty intentionally.
+    public AbstractComponent() {
     }
 
     /**
-     * Get the active scene.
-     *
-     * @return The active scene.
+     * Update the component.
      */
-    public AbstractScene getScene() {
-        return scene;
+    public abstract void update();
+
+    /**
+     * Render the component.
+     */
+    public abstract void render();
+
+    /**
+     * Get the parent entity.
+     *
+     * @return The parent entity.
+     */
+    public Entity getEntity() {
+        return entity;
     }
 
     /**
-     * Set the active scene.
+     * Set the parent entity.
      *
-     * @param scene The active scene.
+     * @param entity The parent entity.
      */
-    public void setScene(final AbstractScene scene) {
-        if (this.scene != null) {
-            this.scene.destroy();
-        }
-        scene.create();
-        this.scene = scene;
+    public void setEntity(final Entity entity) {
+        this.entity = entity;
     }
 }
