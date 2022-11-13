@@ -37,6 +37,7 @@ public class RenderBatch {
      * The number of vertices used for a quad.
      */
     private static final int QUAD_VERTICES = 4;
+
     /**
      * The number of indices used for a quad.
      */
@@ -86,7 +87,6 @@ public class RenderBatch {
      * The vertex buffer.
      */
     private final VertexBuffer vertexBuffer;
-
 
     /**
      * Create a new render batch with the given capacity using the given shader.
