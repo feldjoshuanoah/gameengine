@@ -29,6 +29,7 @@ public abstract class AbstractComponent {
      * Create a new entity component.
      */
     public AbstractComponent() {
+        // This is empty intentionally.
     }
 
     /**

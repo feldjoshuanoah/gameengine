@@ -35,6 +35,7 @@ public class VertexBuffer extends AbstractBuffer {
      * Create a new vertex buffer.
      *
      * @param vertices The vertices to be stored in the buffer.
+     * @param layout The buffer layout.
      */
     public VertexBuffer(final float[] vertices, final Shader.DataType[] layout) {
         super(GL30.glGenBuffers());
