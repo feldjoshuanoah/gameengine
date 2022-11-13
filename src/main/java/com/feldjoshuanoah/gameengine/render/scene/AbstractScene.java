@@ -16,6 +16,9 @@
 package com.feldjoshuanoah.gameengine.render.scene;
 
 import com.feldjoshuanoah.gameengine.entity.Entity;
+import com.feldjoshuanoah.gameengine.render.Camera;
+import com.feldjoshuanoah.gameengine.render.Renderer;
+import com.feldjoshuanoah.gameengine.render.Shader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,26 +29,33 @@ import java.util.List;
 public abstract class AbstractScene {
 
     /**
+     * The camera.
+     */
+    private final Camera camera;
+
+    /**
      * The entities.
      */
     private final List<Entity> entities;
 
     /**
+     * The renderer.
+     */
+    private final Renderer renderer;
+
+    /**
      * Create a new scene.
      */
-    public AbstractScene() {
+    public AbstractScene(final Camera camera, final Shader shader) {
+        this.camera = camera;
         entities = new ArrayList<>();
+        renderer = new Renderer(shader);
     }
 
     /**
      * Update the scene.
      */
     public abstract void update();
-
-    /**
-     * Render the scene.
-     */
-    public abstract void render();
 
     /**
      * Create the scene.
@@ -58,6 +68,13 @@ public abstract class AbstractScene {
     public abstract void destroy();
 
     /**
+     * Render the scene.
+     */
+    public void render() {
+        renderer.render();
+    }
+
+    /**
      * Update the entities.
      */
     public void updateEntities() {
@@ -65,10 +82,12 @@ public abstract class AbstractScene {
     }
 
     /**
-     * Render the entities.
+     * Get the camera.
+     *
+     * @return The camera.
      */
-    public void renderEntities() {
-        entities.forEach(Entity::render);
+    public Camera getCamera() {
+        return camera;
     }
 
     /**
@@ -78,6 +97,7 @@ public abstract class AbstractScene {
      */
     public void addEntity(final Entity entity) {
         entities.add(entity);
+        renderer.add(entity);
     }
 
     /**

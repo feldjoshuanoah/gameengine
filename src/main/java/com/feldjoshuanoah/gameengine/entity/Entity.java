@@ -33,12 +33,13 @@ public class Entity {
     /**
      * The transform.
      */
-    private Transform transform;
+    private final Transform transform;
 
     /**
      * Create a new entity.
      */
-    public Entity() {
+    public Entity(final Transform transform) {
+        this.transform = transform;
         components = new ArrayList<>();
     }
 
@@ -47,13 +48,6 @@ public class Entity {
      */
     public void update() {
         components.forEach(AbstractComponent::update);
-    }
-
-    /**
-     * Render the components.
-     */
-    public void render() {
-        components.forEach(AbstractComponent::render);
     }
 
     /**
@@ -96,14 +90,5 @@ public class Entity {
      */
     public Transform getTransform() {
         return transform;
-    }
-
-    /**
-     * Set the transform.
-     *
-     * @param transform The transform.
-     */
-    public void setTransform(final Transform transform) {
-        this.transform = transform;
     }
 }

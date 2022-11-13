@@ -13,45 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.feldjoshuanoah.gameengine.entity;
+package com.feldjoshuanoah.gameengine.entity.component;
+
+import com.feldjoshuanoah.gameengine.entity.AbstractComponent;
+import org.joml.Vector4f;
 
 /**
- * Represents an entity component.
+ * Represents a sprite component.
  */
-public abstract class AbstractComponent {
+public class SpriteComponent extends AbstractComponent {
 
     /**
-     * The parent entity.
+     * The color.
      */
-    private Entity entity;
+    private final Vector4f color;
 
     /**
-     * Create a new entity component.
+     * Create a new sprite component.
+     *
+     * @param color The color.
      */
-    public AbstractComponent() {
+    public SpriteComponent(final  Vector4f color) {
+        this.color = color;
+    }
+
+    @Override
+    public void update() {
         // This is empty intentionally.
     }
 
     /**
-     * Update the component.
-     */
-    public abstract void update();
-
-    /**
-     * Get the parent entity.
+     * Get the color.
      *
-     * @return The parent entity.
+     * @return The color.
      */
-    public Entity getEntity() {
-        return entity;
-    }
-
-    /**
-     * Set the parent entity.
-     *
-     * @param entity The parent entity.
-     */
-    public void setEntity(final Entity entity) {
-        this.entity = entity;
+    public Vector4f getColor() {
+        return color;
     }
 }
