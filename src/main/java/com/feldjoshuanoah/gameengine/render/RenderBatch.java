@@ -17,11 +17,13 @@ package com.feldjoshuanoah.gameengine.render;
 
 import com.feldjoshuanoah.gameengine.Application;
 import com.feldjoshuanoah.gameengine.entity.Entity;
-import com.feldjoshuanoah.gameengine.entity.component.SpriteComponent;
+import com.feldjoshuanoah.gameengine.entity.component.ColorComponent;
+import com.feldjoshuanoah.gameengine.entity.component.TextureComponent;
 import com.feldjoshuanoah.gameengine.render.Shader.DataType;
 import com.feldjoshuanoah.gameengine.render.buffer.IndexBuffer;
 import com.feldjoshuanoah.gameengine.render.buffer.VertexBuffer;
 import org.joml.Vector4f;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
 
 import java.util.ArrayList;
@@ -49,9 +51,16 @@ public class RenderBatch {
     private static final int[] BASE_INDICES = new int[] { 0, 3, 1, 1, 3, 2 };
 
     /**
+     * The texture slots.
+     */
+    private static final int[] TEXTURE_SLOTS = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+    /**
      * The layout of the vertex shader.
      */
-    private static final DataType[] LAYOUT = new DataType[] { DataType.VEC2, DataType.VEC4 };
+    private static final DataType[] LAYOUT = new DataType[] {
+            DataType.VEC2, DataType.VEC4, DataType.VEC2, DataType.FLOAT
+    };
 
     /**
      * The batch capacity.
@@ -79,6 +88,11 @@ public class RenderBatch {
     private final List<Entity> entities;
 
     /**
+     * The textures.
+     */
+    private final List<Texture> textures;
+
+    /**
      * The vertex array.
      */
     private final VertexArray vertexArray;
@@ -98,6 +112,7 @@ public class RenderBatch {
         this.capacity = capacity;
         this.shader = shader;
         entities = new ArrayList<>();
+        textures = new ArrayList<>();
         vertexSize = Arrays.stream(LAYOUT).mapToInt(DataType::getSize).sum();
         vertices = new float[vertexSize * QUAD_VERTICES * capacity];
 
@@ -126,6 +141,11 @@ public class RenderBatch {
         final Camera camera = Application.getInstance().getSceneManager().getScene().getCamera();
         shader.uniformMatrix4f("u_Projection", camera.getProjection());
         shader.uniformMatrix4f("u_View", camera.getView());
+        for (int i = 0; i < textures.size(); i++) {
+            GL30.glActiveTexture(GL13.GL_TEXTURE0 + i + 1);
+            textures.get(i).bind();
+        }
+        shader.uniform1iv("u_Textures", TEXTURE_SLOTS);
 
         vertexArray.bind();
         vertexBuffer.enableVertexAttribArrays();
@@ -134,6 +154,7 @@ public class RenderBatch {
         vertexBuffer.disableVertexAttribArrays();
         vertexArray.unbind();
 
+        textures.forEach(Texture::unbind);
         shader.unbind();
     }
 
@@ -146,13 +167,9 @@ public class RenderBatch {
         if (isFull()) {
             throw new IllegalStateException("Render batch has no more capacity.");
         }
-        if (entity.getComponent(SpriteComponent.class) == null) {
-            throw new IllegalArgumentException("Entity has no associated sprite.");
-        }
         entities.add(entity);
 
         final Transform transform = entity.getTransform();
-        final Vector4f color = entity.getComponent(SpriteComponent.class).getColor();
         int offset = (entities.size() - 1) * vertexSize * QUAD_VERTICES;
         float x = 1.0f;
         float y = 1.0f;
@@ -164,9 +181,24 @@ public class RenderBatch {
             }
             vertices[offset] = transform.getPosition().x() + x * transform.getScale().x();
             vertices[offset + 1] = transform.getPosition().y() + y * transform.getScale().y();
+            final ColorComponent colorComponent = entity.getComponent(ColorComponent.class);
+            final Vector4f color = colorComponent == null ? new Vector4f(1.0f, 1.0f, 1.0f, 1.0f)
+                    : colorComponent.getColor();
             for (int j = 0; j < 4; j++) {
                 vertices[offset + 2 + j] = color.get(j);
             }
+            final TextureComponent textureComponent = entity.getComponent(TextureComponent.class);
+            int textureId = 0;
+            if (textureComponent != null) {
+                final Texture texture = textureComponent.getTexture();
+                if (!textures.contains(texture)) {
+                    textures.add(texture);
+                }
+                textureId = textures.indexOf(texture) + 1;
+            }
+            vertices[offset + 6] = TextureComponent.TEXTURE_COORDINATES[i].x();
+            vertices[offset + 7] = TextureComponent.TEXTURE_COORDINATES[i].y();
+            vertices[offset + 8] = textureId;
             offset += vertexSize;
         }
     }

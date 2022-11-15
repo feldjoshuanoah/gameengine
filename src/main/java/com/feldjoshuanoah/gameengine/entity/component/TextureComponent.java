@@ -16,25 +16,36 @@
 package com.feldjoshuanoah.gameengine.entity.component;
 
 import com.feldjoshuanoah.gameengine.entity.AbstractComponent;
-import org.joml.Vector4f;
+import com.feldjoshuanoah.gameengine.render.Texture;
+import org.joml.Vector2f;
 
 /**
- * Represents a sprite component.
+ * Represents a texture component.
  */
-public class SpriteComponent extends AbstractComponent {
+public class TextureComponent extends AbstractComponent {
 
     /**
-     * The color.
+     * The texture coordinates of a quad.
      */
-    private final Vector4f color;
+    public static final Vector2f[] TEXTURE_COORDINATES = new Vector2f[] {
+            new Vector2f(1.0f, 1.0f),
+            new Vector2f(1.0f, 0.0f),
+            new Vector2f(0.0f, 0.0f),
+            new Vector2f(0.0f, 1.0f)
+    };
 
     /**
-     * Create a new sprite component.
+     * The texture.
+     */
+    private final Texture texture;
+
+    /**
+     * Create a new texture component.
      *
-     * @param color The color.
+     * @param texture The texture.
      */
-    public SpriteComponent(final  Vector4f color) {
-        this.color = color;
+    public TextureComponent(final Texture texture) {
+        this.texture = texture;
     }
 
     @Override
@@ -43,11 +54,11 @@ public class SpriteComponent extends AbstractComponent {
     }
 
     /**
-     * Get the color.
+     * Get the texture.
      *
-     * @return The color.
+     * @return The texture.
      */
-    public Vector4f getColor() {
-        return color;
+    public Texture getTexture() {
+        return texture;
     }
 }
