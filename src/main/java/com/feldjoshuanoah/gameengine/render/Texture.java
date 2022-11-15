@@ -47,10 +47,11 @@ public class Texture {
         final IntBuffer width = BufferUtils.createIntBuffer(1);
         final IntBuffer height = BufferUtils.createIntBuffer(1);
         final IntBuffer channels = BufferUtils.createIntBuffer(1);
+        STBImage.stbi_set_flip_vertically_on_load(true);
         final ByteBuffer image = STBImage.stbi_load(file, width, height, channels, 0);
         if (image != null) {
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width.get(0), height.get(0), 0,
-                    GL11.GL_RGBA, GL11.GL_UNSIGNED_INT, image);
+                    GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, image);
             STBImage.stbi_image_free(image);
         }
     }

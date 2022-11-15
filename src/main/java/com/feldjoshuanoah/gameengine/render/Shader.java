@@ -193,6 +193,16 @@ public class Shader {
     }
 
     /**
+     * Specifies the value of an int uniform variable for the shader program.
+     *
+     * @param name The name of the int uniform variable.
+     * @param value The desired value for the int uniform variable.
+     */
+    public void uniform1iv(final String name, final int[] value) {
+        GL20.glUniform1iv(GL20.glGetUniformLocation(handle, name), value);
+    }
+
+    /**
      * Specifies the value of a float uniform variable for the shader program.
      *
      * @param name The name of the float uniform variable.
