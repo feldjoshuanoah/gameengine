@@ -16,6 +16,7 @@
 package com.feldjoshuanoah.gameengine.render;
 
 import com.feldjoshuanoah.gameengine.entity.Entity;
+import com.feldjoshuanoah.gameengine.entity.component.TextureComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,14 @@ public class Renderer {
      * @param entity The entity to render.
      */
     public void add(Entity entity) {
-        batches.stream().filter(batch -> !batch.isFull()).findFirst().ifPresentOrElse(
+        batches.stream().filter(batch -> {
+            final TextureComponent textureComponent = entity.getComponent(TextureComponent.class);
+            boolean textureCapacity = true;
+            if (textureComponent != null) {
+                textureCapacity = !batch.isTextureStoreFull() || batch.containsTexture(textureComponent.getTexture());
+            }
+            return !batch.isFull() && textureCapacity;
+        }).findFirst().ifPresentOrElse(
                 batch -> batch.addEntity(entity),
                 () -> {
                     final RenderBatch renderBatch = new RenderBatch(BATCH_CAPACITY, shader);
@@ -67,7 +75,7 @@ public class Renderer {
     }
 
     /**
-     * Render all batches.
+     * Render all render batches.
      */
     public void render() {
         batches.forEach(RenderBatch::render);

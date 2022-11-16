@@ -131,7 +131,7 @@ public class RenderBatch {
     }
 
     /**
-     * Render all entities in the batch.
+     * Render all entities in the render batch.
      */
     public void render() {
         vertexBuffer.bind();
@@ -159,7 +159,7 @@ public class RenderBatch {
     }
 
     /**
-     * Add an entity to the batch.
+     * Add an entity to the render batch.
      *
      * @param entity The entity to add.
      */
@@ -204,11 +204,30 @@ public class RenderBatch {
     }
 
     /**
-     * Determine whether the batch is full or not.
+     * Return {@code true} if the render batch is full.
      *
-     * @return {@code true} if the batch is full, {@code false} otherwise.
+     * @return {@code true} if the render batch is full.
      */
     public boolean isFull() {
         return entities.size() == capacity;
+    }
+
+    /**
+     * Return {@code true} if the texture store of the render batch is full.
+     *
+     * @return {@code true} if the texture store of the render batch is full.
+     */
+    public boolean isTextureStoreFull() {
+        return textures.size() < 8;
+    }
+
+    /**
+     * Return {@code true} if the render batch contains the specified texture.
+     *
+     * @param texture The texture whose presence in the render batch is to be tested.
+     * @return {@code true} if the render batch contains the specified texture.
+     */
+    public boolean containsTexture(final Texture texture) {
+        return textures.contains(texture);
     }
 }
