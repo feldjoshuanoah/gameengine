@@ -26,7 +26,7 @@ public class SpriteComponent extends AbstractComponent {
     /**
      * The texture.
      */
-    private final Sprite sprite;
+    private Sprite sprite;
 
     /**
      * Create a new sprite component.
@@ -49,5 +49,15 @@ public class SpriteComponent extends AbstractComponent {
      */
     public Sprite getSprite() {
         return sprite;
+    }
+
+    /**
+     * Set the sprite.
+     *
+     * @param sprite The sprite.
+     */
+    public void setSprite(final Sprite sprite) {
+        this.sprite = sprite;
+        getEntity().setDirty(true);
     }
 }
