@@ -51,6 +51,11 @@ public class ColorComponent extends AbstractComponent {
         return color;
     }
 
+    /**
+     * Set the color.
+     *
+     * @param color The color.
+     */
     public void setColor(final Vector4f color) {
         if (!this.color.equals(color)) {
             this.color = color;
