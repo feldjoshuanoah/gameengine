@@ -33,7 +33,12 @@ public class Entity {
     /**
      * The transform.
      */
-    private final Transform transform;
+    private Transform transform;
+
+    /**
+     * Dirty flag for rendering.
+     */
+    private boolean dirty;
 
     /**
      * Create a new entity.
@@ -90,5 +95,35 @@ public class Entity {
      */
     public Transform getTransform() {
         return transform;
+    }
+
+    /**
+     * Set the transform.
+     *
+     * @param transform The transform.
+     */
+    public void setTransform(final Transform transform) {
+        if (!this.transform.equals(transform)) {
+            this.transform = transform;
+            dirty = true;
+        }
+    }
+
+    /**
+     * Return {@code true} if the dirty flag for rendering is active.
+     *
+     * @return {@code true} if the dirty flag for rendering is active.
+     */
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    /**
+     * Set the dirty flag for rendering.
+     *
+     * @param dirty The dirty flag for rendering.
+     */
+    public void setDirty(final boolean dirty) {
+        this.dirty = dirty;
     }
 }

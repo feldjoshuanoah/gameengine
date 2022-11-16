@@ -135,8 +135,15 @@ public class RenderBatch {
      * Render all entities in the render batch.
      */
     public void render() {
-        vertexBuffer.bind();
-        vertexBuffer.setSubData(0, vertices);
+        final List<Entity> dirtyEntities = entities.stream().filter(Entity::isDirty).toList();
+        dirtyEntities.forEach(entity -> {
+            loadVertexData(entity);
+            entity.setDirty(false);
+        });
+        if (!dirtyEntities.isEmpty()) {
+            vertexBuffer.bind();
+            vertexBuffer.setSubData(0, vertices);
+        }
 
         shader.bind();
         final Camera camera = Application.getInstance().getSceneManager().getScene().getCamera();
@@ -169,9 +176,40 @@ public class RenderBatch {
             throw new IllegalStateException("Render batch has no more capacity.");
         }
         entities.add(entity);
+        loadVertexData(entity);
+    }
 
+    /**
+     * Return {@code true} if the render batch is full.
+     *
+     * @return {@code true} if the render batch is full.
+     */
+    public boolean isFull() {
+        return entities.size() == capacity;
+    }
+
+    /**
+     * Return {@code true} if the texture store of the render batch is full.
+     *
+     * @return {@code true} if the texture store of the render batch is full.
+     */
+    public boolean isTextureStoreFull() {
+        return textures.size() < 8;
+    }
+
+    /**
+     * Return {@code true} if the render batch contains the specified texture.
+     *
+     * @param texture The texture whose presence in the render batch is to be tested.
+     * @return {@code true} if the render batch contains the specified texture.
+     */
+    public boolean containsTexture(final Texture texture) {
+        return textures.contains(texture);
+    }
+
+    private void loadVertexData(final Entity entity) {
         final Transform transform = entity.getTransform();
-        int offset = (entities.size() - 1) * vertexSize * QUAD_VERTICES;
+        int offset = entities.indexOf(entity) * vertexSize * QUAD_VERTICES;
         float x = 1.0f;
         float y = 1.0f;
         for (int i = 0; i < QUAD_VERTICES; i++) {
@@ -202,33 +240,5 @@ public class RenderBatch {
             vertices[offset + 8] = textureId;
             offset += vertexSize;
         }
-    }
-
-    /**
-     * Return {@code true} if the render batch is full.
-     *
-     * @return {@code true} if the render batch is full.
-     */
-    public boolean isFull() {
-        return entities.size() == capacity;
-    }
-
-    /**
-     * Return {@code true} if the texture store of the render batch is full.
-     *
-     * @return {@code true} if the texture store of the render batch is full.
-     */
-    public boolean isTextureStoreFull() {
-        return textures.size() < 8;
-    }
-
-    /**
-     * Return {@code true} if the render batch contains the specified texture.
-     *
-     * @param texture The texture whose presence in the render batch is to be tested.
-     * @return {@code true} if the render batch contains the specified texture.
-     */
-    public boolean containsTexture(final Texture texture) {
-        return textures.contains(texture);
     }
 }

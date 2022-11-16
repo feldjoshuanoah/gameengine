@@ -26,14 +26,14 @@ public class ColorComponent extends AbstractComponent {
     /**
      * The color.
      */
-    private final Vector4f color;
+    private Vector4f color;
 
     /**
      * Create a new sprite component.
      *
      * @param color The color.
      */
-    public ColorComponent(final  Vector4f color) {
+    public ColorComponent(final Vector4f color) {
         this.color = color;
     }
 
@@ -49,5 +49,12 @@ public class ColorComponent extends AbstractComponent {
      */
     public Vector4f getColor() {
         return color;
+    }
+
+    public void setColor(final Vector4f color) {
+        if (!this.color.equals(color)) {
+            this.color = color;
+            getEntity().setDirty(true);
+        }
     }
 }
