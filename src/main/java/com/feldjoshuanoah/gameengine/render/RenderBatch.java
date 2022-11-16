@@ -18,10 +18,11 @@ package com.feldjoshuanoah.gameengine.render;
 import com.feldjoshuanoah.gameengine.Application;
 import com.feldjoshuanoah.gameengine.entity.Entity;
 import com.feldjoshuanoah.gameengine.entity.component.ColorComponent;
-import com.feldjoshuanoah.gameengine.entity.component.TextureComponent;
+import com.feldjoshuanoah.gameengine.entity.component.SpriteComponent;
 import com.feldjoshuanoah.gameengine.render.Shader.DataType;
 import com.feldjoshuanoah.gameengine.render.buffer.IndexBuffer;
 import com.feldjoshuanoah.gameengine.render.buffer.VertexBuffer;
+import org.joml.Vector2f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
@@ -187,17 +188,17 @@ public class RenderBatch {
             for (int j = 0; j < 4; j++) {
                 vertices[offset + 2 + j] = color.get(j);
             }
-            final TextureComponent textureComponent = entity.getComponent(TextureComponent.class);
+            final SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
             int textureId = 0;
-            if (textureComponent != null) {
-                final Texture texture = textureComponent.getTexture();
+            if (spriteComponent != null) {
+                final Texture texture = spriteComponent.getSprite().getTexture();
                 if (!textures.contains(texture)) {
                     textures.add(texture);
                 }
                 textureId = textures.indexOf(texture) + 1;
+                vertices[offset + 6] = spriteComponent.getSprite().getTextureCoordinates()[i].x();
+                vertices[offset + 7] = spriteComponent.getSprite().getTextureCoordinates()[i].y();
             }
-            vertices[offset + 6] = TextureComponent.TEXTURE_COORDINATES[i].x();
-            vertices[offset + 7] = TextureComponent.TEXTURE_COORDINATES[i].y();
             vertices[offset + 8] = textureId;
             offset += vertexSize;
         }

@@ -16,7 +16,7 @@
 package com.feldjoshuanoah.gameengine.render;
 
 import com.feldjoshuanoah.gameengine.entity.Entity;
-import com.feldjoshuanoah.gameengine.entity.component.TextureComponent;
+import com.feldjoshuanoah.gameengine.entity.component.SpriteComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +58,11 @@ public class Renderer {
      */
     public void add(Entity entity) {
         batches.stream().filter(batch -> {
-            final TextureComponent textureComponent = entity.getComponent(TextureComponent.class);
+            final SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
             boolean textureCapacity = true;
-            if (textureComponent != null) {
-                textureCapacity = !batch.isTextureStoreFull() || batch.containsTexture(textureComponent.getTexture());
+            if (spriteComponent != null) {
+                textureCapacity = !batch.isTextureStoreFull() || batch.containsTexture(
+                        spriteComponent.getSprite().getTexture());
             }
             return !batch.isFull() && textureCapacity;
         }).findFirst().ifPresentOrElse(
