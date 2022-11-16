@@ -59,7 +59,7 @@ public final class ResourceUtils {
      * @param name The resource name.
      * @return The absolute path of the resource.
      */
-    public static String getResourceContent(final String name) {
+    public static String getContent(final String name) {
         try {
             return Files.readString(Path.of(Objects.requireNonNull(getResource(name))));
         } catch (final IOException exception) {
