@@ -16,7 +16,7 @@
 package com.feldjoshuanoah.gameengine.entity.component;
 
 import com.feldjoshuanoah.gameengine.entity.AbstractComponent;
-import com.feldjoshuanoah.gameengine.render.Sprite;
+import com.feldjoshuanoah.gameengine.render.sprite.Sprite;
 
 /**
  * Represents a sprite component.

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.feldjoshuanoah.gameengine.render;
+package com.feldjoshuanoah.gameengine.render.sprite;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -33,6 +33,16 @@ public class Texture {
     private final int id;
 
     /**
+     * The width.
+     */
+    private final int width;
+
+    /**
+     * The height.
+     */
+    private final int height;
+
+    /**
      * Create a new texture.
      *
      * @param file The texture file.
@@ -49,6 +59,8 @@ public class Texture {
         final IntBuffer channels = BufferUtils.createIntBuffer(1);
         STBImage.stbi_set_flip_vertically_on_load(true);
         final ByteBuffer image = STBImage.stbi_load(file, width, height, channels, 0);
+        this.width = width.get(0);
+        this.height = height.get(0);
         if (image != null) {
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width.get(0), height.get(0), 0,
                     GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, image);
@@ -68,5 +80,23 @@ public class Texture {
      */
     public void unbind() {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+    }
+
+    /**
+     * Get the width.
+     *
+     * @return The width.
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Get the height.
+     *
+     * @return The height.
+     */
+    public int getHeight() {
+        return height;
     }
 }

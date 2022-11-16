@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.feldjoshuanoah.gameengine.render;
+package com.feldjoshuanoah.gameengine.render.sprite;
 
 import org.joml.Vector2f;
 

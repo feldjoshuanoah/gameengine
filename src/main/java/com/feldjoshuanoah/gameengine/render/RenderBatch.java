@@ -22,7 +22,7 @@ import com.feldjoshuanoah.gameengine.entity.component.SpriteComponent;
 import com.feldjoshuanoah.gameengine.render.Shader.DataType;
 import com.feldjoshuanoah.gameengine.render.buffer.IndexBuffer;
 import com.feldjoshuanoah.gameengine.render.buffer.VertexBuffer;
-import org.joml.Vector2f;
+import com.feldjoshuanoah.gameengine.render.sprite.Texture;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
