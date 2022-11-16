@@ -36,16 +36,26 @@ public class Entity {
     private Transform transform;
 
     /**
+     * The z-index.
+     */
+    private final int z;
+
+    /**
      * Dirty flag for rendering.
      */
     private boolean dirty;
 
     /**
      * Create a new entity.
+     *
+     * @param transform The transform.
+     * @param z The z-index.
      */
-    public Entity(final Transform transform) {
+    public Entity(final Transform transform, final int z) {
         this.transform = transform;
         components = new ArrayList<>();
+        this.dirty = true;
+        this.z = z;
     }
 
     /**
@@ -107,6 +117,15 @@ public class Entity {
             this.transform = transform;
             dirty = true;
         }
+    }
+
+    /**
+     * Get the z-index.
+     *
+     * @return The z-index.
+     */
+    public int getZ() {
+        return z;
     }
 
     /**

@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Represents a render batch.
  */
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch> {
 
     /**
      * The number of vertices used for a quad.
@@ -74,6 +74,11 @@ public class RenderBatch {
     private final Shader shader;
 
     /**
+     * The z-index.
+     */
+    private final int z;
+
+    /**
      * The size of a vertex.
      */
     private final int vertexSize;
@@ -108,10 +113,12 @@ public class RenderBatch {
      *
      * @param capacity The desired capacity of the batch.
      * @param shader The shader to use.
+     * @param z The z-index.
      */
-    public RenderBatch(final int capacity, final Shader shader) {
+    public RenderBatch(final int capacity, final Shader shader, final int z) {
         this.capacity = capacity;
         this.shader = shader;
+        this.z = z;
         entities = new ArrayList<>();
         textures = new ArrayList<>();
         vertexSize = Arrays.stream(LAYOUT).mapToInt(DataType::getSize).sum();
@@ -207,6 +214,15 @@ public class RenderBatch {
         return textures.contains(texture);
     }
 
+    /**
+     * Get the z-index.
+     *
+     * @return The z-index.
+     */
+    public int getZ() {
+        return z;
+    }
+
     private void loadVertexData(final Entity entity) {
         final Transform transform = entity.getTransform();
         int offset = entities.indexOf(entity) * vertexSize * QUAD_VERTICES;
@@ -240,5 +256,10 @@ public class RenderBatch {
             vertices[offset + 8] = textureId;
             offset += vertexSize;
         }
+    }
+
+    @Override
+    public int compareTo(final RenderBatch renderBatch) {
+        return Integer.compare(z, renderBatch.getZ());
     }
 }

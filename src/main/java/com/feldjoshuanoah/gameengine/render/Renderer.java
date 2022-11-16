@@ -57,18 +57,19 @@ public class Renderer {
      * @param entity The entity to render.
      */
     public void add(Entity entity) {
-        batches.stream().filter(batch -> {
+        batches.stream().filter(renderBatch -> {
             final SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
             boolean textureCapacity = true;
             if (spriteComponent != null) {
-                textureCapacity = !batch.isTextureStoreFull() || batch.containsTexture(
+                textureCapacity = !renderBatch.isTextureStoreFull() || renderBatch.containsTexture(
                         spriteComponent.getSprite().getTexture());
             }
-            return !batch.isFull() && textureCapacity;
+            return !renderBatch.isFull() && textureCapacity && entity.getZ() == renderBatch.getZ();
         }).findFirst().ifPresentOrElse(
-                batch -> batch.addEntity(entity),
+                renderBatch -> renderBatch.addEntity(entity),
                 () -> {
-                    final RenderBatch renderBatch = new RenderBatch(BATCH_CAPACITY, shader);
+                    final RenderBatch renderBatch = new RenderBatch(BATCH_CAPACITY, shader,
+                            entity.getZ());
                     batches.add(renderBatch);
                     renderBatch.addEntity(entity);
                 }
@@ -79,6 +80,6 @@ public class Renderer {
      * Render all render batches.
      */
     public void render() {
-        batches.forEach(RenderBatch::render);
+        batches.stream().sorted().forEach(RenderBatch::render);
     }
 }
