@@ -152,4 +152,10 @@ public class Transform {
     public void setZ(final int z) {
         this.z = z;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof final Transform transform && position.equals(transform.getPosition())
+                && scale.equals(transform.getScale());
+    }
 }
