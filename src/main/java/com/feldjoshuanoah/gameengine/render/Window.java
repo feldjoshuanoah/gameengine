@@ -21,6 +21,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
 /**
@@ -68,6 +69,9 @@ public class Window {
         GLFW.glfwSetScrollCallback(handle, CallbackEventAdapter::scrollCallback);
 
         GL.createCapabilities();
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     /**
