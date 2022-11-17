@@ -56,7 +56,7 @@ public class Renderer {
      *
      * @param entity The entity to render.
      */
-    public void add(Entity entity) {
+    public void add(final Entity entity) {
         batches.stream().filter(renderBatch -> {
             final SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
             boolean textureCapacity = true;

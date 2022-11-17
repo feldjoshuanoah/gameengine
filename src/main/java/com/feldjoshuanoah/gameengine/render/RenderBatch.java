@@ -135,7 +135,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 indices[QUAD_INDICES * i + j] = QUAD_VERTICES * i + BASE_INDICES[j];
             }
         }
-        final IndexBuffer indexBuffer = new IndexBuffer(indices);
+        new IndexBuffer(indices);
     }
 
     /**

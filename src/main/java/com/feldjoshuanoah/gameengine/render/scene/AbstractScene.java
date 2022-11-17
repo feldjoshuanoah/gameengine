@@ -45,6 +45,9 @@ public abstract class AbstractScene {
 
     /**
      * Create a new scene.
+     *
+     * @param camera The camera.
+     * @param shader The shader.
      */
     public AbstractScene(final Camera camera, final Shader shader) {
         this.camera = camera;

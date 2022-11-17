@@ -34,6 +34,7 @@ public class ColorComponent extends AbstractComponent {
      * @param color The color.
      */
     public ColorComponent(final Vector4f color) {
+        super();
         this.color = color;
     }
 

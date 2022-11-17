@@ -16,7 +16,6 @@
 package com.feldjoshuanoah.gameengine.util;
 
 import java.io.IOException;
-import java.lang.StackWalker.Option;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -78,8 +77,8 @@ public final class ResourceUtils {
      */
     public static URI getResource(final String name) {
         try {
-            return Objects.requireNonNull(ResourceUtils.class.getClassLoader().getResource(name))
-                    .toURI();
+            return Objects.requireNonNull(Thread.currentThread().getContextClassLoader()
+                    .getResource(name)).toURI();
         } catch (final URISyntaxException exception) {
             if (LOGGER.isLoggable(Level.SEVERE)) {
                 LOGGER.log(Level.SEVERE, "Unable to load resource " + name, exception);

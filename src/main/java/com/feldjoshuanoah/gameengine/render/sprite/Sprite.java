@@ -54,7 +54,7 @@ public class Sprite {
      */
     public Sprite(final Texture texture, final Vector2f[] textureCoordinates) {
         this.texture = texture;
-        this.textureCoordinates = textureCoordinates;
+        this.textureCoordinates = textureCoordinates.clone();
     }
 
     /**
@@ -72,6 +72,6 @@ public class Sprite {
      * @return The texture coordinates.
      */
     public Vector2f[] getTextureCoordinates() {
-        return textureCoordinates;
+        return textureCoordinates.clone();
     }
 }

@@ -34,6 +34,7 @@ public class SpriteComponent extends AbstractComponent {
      * @param sprite The texture.
      */
     public SpriteComponent(final Sprite sprite) {
+        super();
         this.sprite = sprite;
     }
 
